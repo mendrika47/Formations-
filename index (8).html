@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formation Fiverr Madagascar</title>
+<style>
+  :root{--p:#1dbf73;--p2:#0d8f55;--dark:#0f172a;--gray:#64748b;--light:#f1f5f9;--white:#fff;--danger:#ef4444;--radius:16px}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--light);color:var(--dark);line-height:1.6}
+  a{color:var(--p2)}
+  header{background:var(--dark);color:#fff;position:sticky;top:0;z-index:50;box-shadow:0 2px 12px rgba(0,0,0,.2)}
+  .nav{max-width:1150px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:14px 20px;flex-wrap:wrap;gap:10px}
+  .logo{font-weight:800;font-size:1.2rem;color:var(--p)}
+  .nav-links{display:flex;gap:6px;flex-wrap:wrap}
+  .nav-links button{background:transparent;border:0;color:#cbd5e1;padding:8px 14px;border-radius:10px;cursor:pointer;font-size:.95rem}
+  .nav-links button.active,.nav-links button:hover{background:var(--p);color:#fff}
+  main{max-width:1150px;margin:auto;padding:30px 20px 80px}
+  .hero{background:linear-gradient(135deg,#0f172a,#14532d 60%,#1dbf73);color:#fff;border-radius:24px;padding:60px 30px;text-align:center}
+  .hero h1{font-size:2.4rem;margin-bottom:14px;line-height:1.2}
+  .hero p{font-size:1.1rem;opacity:.92;max-width:700px;margin:auto}
+  .btn{display:inline-block;background:var(--p);color:#fff;border:0;padding:13px 26px;border-radius:12px;font-size:1rem;font-weight:600;cursor:pointer;margin-top:20px}
+  .btn:hover{background:var(--p2)}
+  .btn.sec{background:#e2e8f0;color:var(--dark)}
+  .btn.danger{background:var(--danger);color:#fff}
+  .btn.small{padding:7px 14px;font-size:.85rem;margin-top:0}
+  .btn.full{width:100%}
+  h2{font-size:1.7rem;margin:40px 0 18px}
+  h3{font-size:1.2rem;margin-bottom:8px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+  .card{background:var(--white);border-radius:var(--radius);padding:24px;box-shadow:0 4px 14px rgba(15,23,42,.06)}
+  .card .ico{font-size:2rem;margin-bottom:10px}
+  .price{font-size:2rem;font-weight:800;color:var(--p2)}
+  .box{background:var(--white);border-radius:var(--radius);padding:28px;box-shadow:0 4px 14px rgba(15,23,42,.06);max-width:620px;margin:auto}
+  label{display:block;font-weight:600;margin:12px 0 6px;font-size:.92rem}
+  input,textarea{width:100%;padding:12px 14px;border:1.5px solid #cbd5e1;border-radius:10px;font-size:1rem;font-family:inherit}
+  input:focus,textarea:focus{outline:none;border-color:var(--p)}
+  textarea{font-family:monospace;font-size:.85rem;min-height:110px;margin-top:6px}
+  .msg{padding:12px 14px;border-radius:10px;margin-top:14px;font-size:.95rem}
+  .msg.err{background:#fee2e2;color:#991b1b}
+  .msg.ok{background:#dcfce7;color:#166534}
+  .msg.info{background:#e0f2fe;color:#075985}
+  .mvola{background:linear-gradient(135deg,#fde68a,#f59e0b);color:#111;border-radius:14px;padding:20px;margin:16px 0;font-size:1.05rem}
+  .mvola strong{font-size:1.3rem}
+  .steps{counter-reset:s;list-style:none}
+  .steps li{counter-increment:s;padding:10px 0 10px 50px;position:relative;border-bottom:1px dashed #e2e8f0}
+  .steps li::before{content:counter(s);position:absolute;left:0;top:10px;width:34px;height:34px;border-radius:50%;background:var(--p);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
+  .module{background:#fff;border-radius:var(--radius);margin-bottom:16px;overflow:hidden;box-shadow:0 4px 14px rgba(15,23,42,.06)}
+  .module summary{padding:18px 22px;font-weight:700;cursor:pointer;font-size:1.05rem;list-style:none}
+  .module summary::-webkit-details-marker{display:none}
+  .module summary::after{content:"+";float:right;color:var(--p);font-size:1.4rem}
+  .module[open] summary::after{content:"−"}
+  .module .body{padding:0 22px 22px;color:#334155}
+  .module p{margin:10px 0}
+  .tabs{display:flex;gap:8px;margin-bottom:18px}
+  .tabs button{flex:1;padding:10px;border:0;border-radius:10px;background:#e2e8f0;cursor:pointer;font-weight:600}
+  .tabs button.active{background:var(--p);color:#fff}
+  .actions{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+  .badge{display:inline-block;padding:3px 10px;border-radius:999px;font-size:.78rem;font-weight:600;background:#e2e8f0}
+  .badge.ok{background:#dcfce7;color:#166534}
+  .badge.no{background:#fee2e2;color:#991b1b}
+  table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;font-size:.9rem}
+  th,td{padding:10px;text-align:left;border-bottom:1px solid #e2e8f0;vertical-align:top}
+  th{background:#f8fafc}
+  footer{background:var(--dark);color:#94a3b8;text-align:center;padding:24px;font-size:.9rem}
+  #bot-btn{position:fixed;bottom:22px;right:22px;width:62px;height:62px;border-radius:50%;background:var(--p);color:#fff;border:0;font-size:1.7rem;cursor:pointer;box-shadow:0 8px 20px rgba(0,0,0,.25);z-index:99}
+  #bot{position:fixed;bottom:100px;right:22px;width:340px;max-width:calc(100vw - 30px);height:460px;background:#fff;border-radius:18px;box-shadow:0 12px 36px rgba(0,0,0,.25);display:flex;flex-direction:column;overflow:hidden;z-index:99}
+  #bot .bh{background:var(--p);padding:14px;font-weight:700;color:#fff}
+  #bot-msgs{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px;background:#f8fafc}
+  .m{padding:9px 12px;border-radius:12px;max-width:85%;font-size:.92rem;white-space:pre-line}
+  .m.bot{background:#fff;border:1px solid #e2e8f0;align-self:flex-start}
+  .m.me{background:var(--p);color:#fff;align-self:flex-end}
+  #bot-form{display:flex;gap:6px;padding:10px;border-top:1px solid #e2e8f0}
+  #bot-form input{padding:9px 12px}
+  #bot-form button{background:var(--p);color:#fff;border:0;border-radius:10px;padding:0 14px;cursor:pointer;font-weight:600}
+  .hidden{display:none!important}
+  .link{background:none;border:0;color:var(--p2);cursor:pointer;font-weight:600;text-decoration:underline;font-size:.92rem}
+  @media(max-width:600px){.hero h1{font-size:1.7rem}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <div class="logo">🚀 Formation Fiverr MG</div>
+    <nav class="nav-links">
+      <button data-view="accueil" class="active">Accueil</button>
+      <button data-view="formation">Formation</button>
+      <button data-view="sites">Sites utiles</button>
+      <button data-view="espace">Espace élève</button>
+      <button data-view="admin">Admin</button>
+    </nav>
+  </div>
+</header>
+
+<main id="app"></main>
+
+<footer>
+  © <span id="year"></span> Formation Fiverr Madagascar — Nantenaina Mendrika · MVola : 0347632605
+</footer>
+
+<button id="bot-btn" title="Assistant">💬</button>
+<div id="bot" class="hidden">
+  <div class="bh">Assistant virtuel 🤖</div>
+  <div id="bot-msgs"></div>
+  <form id="bot-form">
+    <input id="bot-input" placeholder="Posez votre question..." autocomplete="off">
+    <button type="submit">Envoyer</button>
+  </form>
+</div>
+
+<script>
+/* ==================== CONFIGURATION ==================== */
+const CONFIG = {
+  prix: "35 000 Ar",
+  mvolaNumero: "0347632605",
+  mvolaNom: "Nantenaina Mendrika",
+  contact: "0347632605",
+  codeAdmin: "Mendrika2026!",   // ⚠️ Changez-le avant de publier
+};
+
+/* ==================== CONTENU ==================== */
+const MODULES = [
+  {titre:"Module 1 — Comprendre le travail en ligne et Fiverr", contenu:`
+  <p><strong>Le principe.</strong> Fiverr est une place de marché : des vendeurs (vous) proposent des services appelés « gigs », et des acheteurs (des entreprises, des particuliers, des créateurs) les commandent et les paient. Vous êtes payé à la commande, une fois le travail livré et accepté.</p>
+  <h4>Ce qu'il faut retenir</h4>
+  <ul>
+    <li>Vous travaillez depuis votre téléphone ou votre ordinateur, à votre rythme.</li>
+    <li>Vous ne gagnez pas en étant présent : vous gagnez en livrant un travail de qualité.</li>
+    <li>Les premiers mois sont souvent lents. Les avis et la régularité font la différence.</li>
+    <li>Fiverr prélève une commission sur chaque commande. Vérifiez le taux actuel sur la page d'aide de fiverr.com.</li>
+  </ul>
+  <h4>Exercice pratique (30 minutes)</h4>
+  <ol class="steps">
+    <li>Ouvrez fiverr.com et cherchez 3 services dans un domaine qui vous intéresse (logo, montage vidéo, traduction, saisie…).</li>
+    <li>Pour chaque service, notez : le prix de départ, le délai, le nombre d'avis, le contenu de la photo de couverture.</li>
+    <li>Écrivez en une phrase ce qui rend le service attractif pour un acheteur.</li>
+  </ol>
+  <h4>Exemple concret</h4>
+  <p>Si un gig est vendu 20 $ et que la commission est de 20 %, vous recevez environ 16 $ avant d'éventuels frais de retrait. Ce calcul vous servira à fixer vos prix (Module 6).</p>
+  `},
+
+  {titre:"Module 2 — Inscription sur Fiverr, pas à pas", contenu:`
+  <ol class="steps">
+    <li><strong>Ouvrir le site.</strong> Allez sur fiverr.com et cliquez sur « Rejoindre ». Vous pouvez utiliser votre email ou un compte Google.</li>
+    <li><strong>Choisir le mot de passe.</strong> Utilisez un mot de passe long et unique. Notez-le dans un endroit sûr.</li>
+    <li><strong>Devenir vendeur.</strong> Après la création du compte, choisissez l'option pour vendre des services (« Devenir vendeur » ou « Become a seller »).</li>
+    <li><strong>Renseigner le pays.</strong> Indiquez Madagascar. Vérifiez que les informations correspondent à vos documents.</li>
+    <li><strong>Vérifier le téléphone.</strong> Entrez votre numéro et le code reçu par SMS. Gardez ce numéro accessible.</li>
+    <li><strong>Vérifier l'identité.</strong> Fiverr peut demander une pièce d'identité en cours de validité et une photo de vous. Ces étapes servent à protéger les acheteurs et les vendeurs.</li>
+    <li><strong>Activer la double authentification.</strong> Dans les paramètres de sécurité, activez-la pour protéger votre compte.</li>
+  </ol>
+  <h4>Pratique : checklist d'inscription</h4>
+  <ul>
+    <li>☐ Email actif et accessible</li>
+    <li>☐ Mot de passe noté en sécurité</li>
+    <li>☐ Numéro de téléphone vérifié</li>
+    <li>☐ Pièce d'identité prête (photo nette, non floue)</li>
+    <li>☐ Double authentification activée</li>
+  </ul>
+  <h4>Erreurs fréquentes</h4>
+  <ul>
+    <li>Créer deux comptes : ce n'est pas autorisé. Un seul compte par personne.</li>
+    <li>Donner un faux nom ou une fausse identité : votre compte peut être suspendu.</li>
+    <li>Partager votre mot de passe : ne le donnez à personne.</li>
+  </ul>
+  `},
+
+  {titre:"Module 3 — Configurer votre profil qui inspire confiance", contenu:`
+  <p>Votre profil est la première chose que voit un acheteur. Il doit donner envie de vous faire confiance en quelques secondes.</p>
+  <h4>Les éléments à remplir</h4>
+  <ol class="steps">
+    <li><strong>Photo de profil :</strong> visage clair, souriant, fond neutre, pas de lunettes de soleil. Une photo simple vaut mieux qu'une photo floue.</li>
+    <li><strong>Nom d'affichage :</strong> votre prénom ou un nom professionnel simple.</li>
+    <li><strong>Titre :</strong> une phrase qui dit ce que vous faites. Ex : « Designer graphique — logos et identités visuelles ».</li>
+    <li><strong>Description :</strong> 3 paragraphes courts : qui vous êtes, ce que vous faites, pour qui, et votre méthode de travail.</li>
+    <li><strong>Compétences :</strong> ajoutez 5 à 10 compétences précises liées à votre service.</li>
+    <li><strong>Langues :</strong> indiquez le français, le malgache et l'anglais si vous le parlez.</li>
+    <li><strong>Formation et certificats :</strong> ajoutez vos diplômes et formations en ligne.</li>
+    <li><strong>Portfolio :</strong> ajoutez 3 à 5 travaux réels, avec une courte explication pour chacun.</li>
+  </ol>
+  <h4>Modèle de description (à adapter)</h4>
+  <p><em>« Bonjour, je m'appelle [Prénom]. Je suis [métier] depuis [X] ans / je débute avec une forte motivation. Je crée [type de travail] pour [type de clients]. Mon objectif : vous livrer un travail clair, respecté dans les délais, avec une communication simple et régulière. N'hésitez pas à me poser vos questions avant de commander. »</em></p>
+  <h4>Pratique</h4>
+  <p>Écrivez votre propre description en remplaçant les crochets. Relisez-la à voix haute : si une phrase vous paraît trop compliquée, simplifiez-la.</p>
+  `},
+
+  {titre:"Module 4 — Choisir votre service et étudier le marché", contenu:`
+  <p>Un bon service est un service que vous savez faire, que les gens achètent, et que vous pouvez livrer dans un délai raisonnable.</p>
+  <h4>Méthode en 3 questions</h4>
+  <ol class="steps">
+    <li><strong>Que sais-je faire ?</strong> Listez 5 compétences, même simples (écrire, Word, Excel, photo, téléphone, langues, couture, dessin…).</li>
+    <li><strong>Qui en a besoin ?</strong> Entreprises locales, commerces, créateurs de contenu, étudiants, associations.</li>
+    <li><strong>Combien de temps ?</strong> Estimez le temps nécessaire pour livrer ce service.</li>
+  </ol>
+  <h4>Étude de marché (outil gratuit)</h4>
+  <ul>
+    <li><strong>Fiverr :</strong> recherchez votre service et regardez les 10 premiers résultats. Notez prix, délai, nombre d'avis.</li>
+    <li><strong>Google Trends :</strong> comparez deux ou trois mots-clés pour voir si la demande progresse ou baisse.</li>
+  </ul>
+  <h4>Exercice : tableau de concurrence</h4>
+  <p>Créez un tableau dans Google Sheets avec les colonnes : Concurrent / Prix de départ / Délai / Nombre d'avis / Points forts / Points faibles. Remplissez-le avec 10 gigs.</p>
+  <h4>Exemple de conclusion</h4>
+  <p>Si la plupart des gigs de logos sont à bas prix et les vendeurs ne proposent pas de version en malgache, c'est une opportunité à étudier.</p>
+  `},
+
+  {titre:"Module 5 — Créer votre premier gig, étape par étape", contenu:`
+  <p>Le gig est votre vitrine. Il doit répondre à une question simple : « Que vais-je obtenir, à quel prix, et en combien de temps ? »</p>
+  <ol class="steps">
+    <li><strong>Titre :</strong> formule recommandée : « Je vais [action] [résultat] [précision] ». Ex : « Je vais créer votre logo professionnel en 24h, avec 2 révisions ».</li>
+    <li><strong>Catégorie et sous-catégorie :</strong> choisissez les plus précises possibles.</li>
+    <li><strong>Mots-clés (tags) :</strong> ajoutez 5 mots que tapent vraiment vos clients (logo, logo entreprise, logo minimaliste…).</li>
+    <li><strong>Packages :</strong> 3 niveaux (voir le tableau ci-dessous).</li>
+    <li><strong>Description :</strong> expliquez ce qui est inclus, les étapes de travail, le délai, les limites.</li>
+    <li><strong>Questions au client (exigences) :</strong> demandez les informations nécessaires avant de commencer.</li>
+    <li><strong>FAQ :</strong> répondez aux 3 questions que tout le monde pose.</li>
+    <li><strong>Images et vidéo :</strong> voir le Module 7.</li>
+  </ol>
+  <h4>Démo : exemple de packages pour un logo</h4>
+  <table>
+    <tr><th>Package</th><th>Contenu</th><th>Délai</th><th>Prix de départ (exemple)</th></tr>
+    <tr><td>Basique</td><td>1 logo, 1 format, 1 révision</td><td>3 jours</td><td>10 $</td></tr>
+    <tr><td>Standard</td><td>3 concepts, fichiers vectoriels, 2 révisions</td><td>3 jours</td><td>25 $</td></tr>
+    <tr><td>Premium</td><td>Charte graphique simple, 4 révisions, source fournie</td><td>5 jours</td><td>50 $</td></tr>
+  </table>
+  <h4>Démo : description de gig (modèle)</h4>
+  <p><em>« Je vais créer un logo unique pour votre entreprise. Ce que vous recevez : fichiers PNG et vectoriels, usage libre. Pour commencer, envoyez-moi le nom de votre entreprise, vos couleurs préférées et 2 ou 3 logos que vous aimez. Je vous envoie des propositions dans les délais annoncés. »</em></p>
+  <h4>Pratique</h4>
+  <p>Créez votre premier gig en brouillon (même si vous ne le publiez pas tout de suite). Vérifiez chaque champ avec la checklist ci-dessous.</p>
+  <ul>
+    <li>☐ Le titre dit clairement ce que le client obtient</li>
+    <li>☐ Les 3 packages ont un contenu différent</li>
+    <li>☐ Les délais sont réalistes</li>
+    <li>☐ Les questions au client sont posées</li>
+    <li>☐ Aucune fausse promesse</li>
+  </ul>
+  `},
+
+  {titre:"Module 6 — Fixer vos prix sans vous sous-payer", contenu:`
+  <p>Beaucoup de débutants vendent trop bas et s'épuisent. Un calcul simple vous aide à fixer un prix juste.</p>
+  <h4>Méthode</h4>
+  <ol class="steps">
+    <li>Estimez le temps total d'une commande (recherche, travail, révisions, livraison). Ex : 4 heures.</li>
+    <li>Choisissez un tarif horaire minimum que vous acceptez. Ex : 5 $ de l'heure.</li>
+    <li>Calculez le prix de base : 4 h × 5 $ = 20 $.</li>
+    <li>Ajoutez la commission Fiverr pour obtenir le prix affiché : 20 $ ÷ (1 − 0,20) = 25 $ environ (si la commission est de 20 %, vérifiez le taux actuel).</li>
+  </ol>
+  <h4>Démo : trois packages à partir d'un prix de base</h4>
+  <ul>
+    <li>Basique : 25 $ (travail de base)</li>
+    <li>Standard : 50 $ (travail plus complet)</li>
+    <li>Premium : 100 $ (travail complet et livraison rapide)</li>
+  </ul>
+  <h4>Conseils</h4>
+  <ul>
+    <li>Ne commencez pas à 1 $ : cela attire des clients difficiles.</li>
+    <li>Augmentez vos prix après 5 à 10 avis positifs.</li>
+    <li>Un client qui négocie fortement n'est pas forcément un bon client. Fixez vos limites.</li>
+  </ul>
+  `},
+
+  {titre:"Module 7 — Images, vidéo et présentation de votre gig", contenu:`
+  <p>Un gig avec une belle image reçoit beaucoup plus de clics. Vous n'avez pas besoin de logiciel payant.</p>
+  <h4>Dimensions recommandées</h4>
+  <ul>
+    <li>Image de couverture du gig : 1280 × 769 px (ou un ratio proche), texte lisible, pas trop chargé.</li>
+    <li>Vidéo de présentation : 30 à 60 secondes, son clair, sous-titres si possible.</li>
+  </ul>
+  <h4>Outils gratuits</h4>
+  <ul>
+    <li><strong>Canva :</strong> modèles de couverture, logos, présentations.</li>
+    <li><strong>Remove.bg :</strong> supprimer le fond d'une photo.</li>
+    <li><strong>Pexels / Unsplash :</strong> photos gratuites (vérifiez toujours la licence).</li>
+    <li><strong>TinyPNG :</strong> réduire le poids des images avant envoi.</li>
+  </ul>
+  <h4>Démo : création d'une couverture en 10 minutes</h4>
+  <ol class="steps">
+    <li>Ouvrez Canva, choisissez un modèle « couverture » 1280 × 769 px.</li>
+    <li>Ajoutez votre titre (5 mots maximum) en gros caractères.</li>
+    <li>Ajoutez un visuel lié à votre service (un logo d'exemple, une photo de travail).</li>
+    <li>Exportez en PNG et réduisez le poids avec TinyPNG.</li>
+  </ol>
+  <h4>Pratique</h4>
+  <p>Faites deux versions de couverture et demandez à trois personnes laquelle elles choisiraient.</p>
+  `},
+
+  {titre:"Module 8 — Trouver vos premiers clients", contenu:`
+  <p>Sur Fiverr, les clients arrivent par la recherche, par les catégories et par les demandes personnalisées. Vous pouvez aussi chercher en dehors de la plateforme, à condition de toujours rester sur Fiverr pour le paiement.</p>
+  <h4>Sur Fiverr</h4>
+  <ul>
+    <li><strong>Mots-clés :</strong> soignez les tags et le titre de votre gig.</li>
+    <li><strong>Offres personnalisées :</strong> quand un client vous écrit, répondez vite et proposez une offre adaptée à son besoin.</li>
+    <li><strong>Avis :</strong> chaque avis 5 étoiles augmente vos chances d'être choisi.</li>
+    <li><strong>Premières commandes :</strong> vous pouvez proposer un prix d'appel pour obtenir vos premiers avis.</li>
+  </ul>
+  <h4>En dehors de Fiverr</h4>
+  <ul>
+    <li><strong>Réseaux sociaux :</strong> montrez vos travaux sur Facebook, LinkedIn ou TikTok, avec le lien de votre gig.</li>
+    <li><strong>Réseau personnel :</strong> parlez de votre activité à vos proches et à vos anciens collègues.</li>
+    <li><strong>Commerçants locaux :</strong> proposez votre service à des boutiques, des restaurants, des associations.</li>
+  </ul>
+  <h4>Démo : message de présentation (à personnaliser)</h4>
+  <p><em>« Bonjour [Prénom], je suis [Nom], [métier]. J'ai remarqué que votre page [ou votre commerce] pourrait gagner en visibilité avec [service]. J'ai préparé un exemple gratuit de [travail] pour vous montrer ce que je peux faire. Si cela vous intéresse, je peux vous envoyer une proposition sur mon profil Fiverr. »</em></p>
+  <h4>Règles à respecter</h4>
+  <ul>
+    <li>N'envoyez pas de messages de masse non sollicités.</li>
+    <li>Ne demandez jamais de payer en dehors de Fiverr : c'est risqué et contraire aux règles.</li>
+  </ul>
+  `},
+
+  {titre:"Module 9 — Gérer une commande du début à la fin", contenu:`
+  <p>Une commande bien gérée donne un client satisfait, un avis et une nouvelle commande.</p>
+  <h4>Étapes d'une commande</h4>
+  <ol class="steps">
+    <li><strong>Accueil :</strong> répondez dans les 2 heures avec un message simple de remerciement.</li>
+    <li><strong>Questions :</strong> demandez toutes les informations nécessaires en une seule fois, pas une par une.</li>
+    <li><strong>Accord :</strong> confirmez le contenu, le délai et les révisions incluses.</li>
+    <li><strong>Travail :</strong> avancez, et envoyez un aperçu si le travail est long.</li>
+    <li><strong>Livraison :</strong> livrez avant la date, avec les fichiers bien nommés et un petit message explicatif.</li>
+    <li><strong>Révisions :</strong> restez courtois, et tenez-vous à ce qui était prévu dans le package.</li>
+    <li><strong>Clôture :</strong> remerciez le client et demandez gentiment un avis.</li>
+  </ol>
+  <h4>Démo : messages types</h4>
+  <p><strong>Accueil :</strong> <em>« Merci pour votre commande ! Pour commencer, pouvez-vous me donner : le nom de votre entreprise, vos couleurs préférées et 2 exemples que vous aimez ? »</em></p>
+  <p><strong>Livraison :</strong> <em>« Bonjour, votre travail est prêt. Vous trouverez les fichiers ici. Je reste disponible si vous souhaitez une révision (incluse dans votre package). Bonne journée ! »</em></p>
+  <h4>Pratique</h4>
+  <p>Simulez une commande avec un ami : il vous commande un petit travail, vous suivez les 7 étapes ci-dessus.</p>
+  `},
+
+  {titre:"Module 10 — Être payé et retirer votre argent", contenu:`
+  <p>Le paiement se fait via Fiverr. Tout ce que vous gagnez apparaît dans la section Revenus de votre compte.</p>
+  <h4>Étapes</h4>
+  <ol class="steps">
+    <li><strong>Commande payée :</strong> le client paie lorsqu'il commande. Le montant est retenu par Fiverr pendant le travail.</li>
+    <li><strong>Livraison acceptée :</strong> une fois le travail livré et accepté, le montant est ajouté à vos revenus disponibles après une période de traitement.</li>
+    <li><strong>Retrait :</strong> depuis la section Revenus, choisissez une méthode de retrait et le montant. Les méthodes disponibles dépendent du pays : vérifiez sur la page d'aide de Fiverr celles qui sont ouvertes à Madagascar.</li>
+  </ol>
+  <h4>Démo : suivi de vos gains</h4>
+  <table>
+    <tr><th>Commande</th><th>Montant</th><th>Commission (exemple 20 %)</th><th>Reçu (estimé)</th></tr>
+    <tr><td>Logo Basique</td><td>25 $</td><td>5 $</td><td>20 $</td></tr>
+    <tr><td>Logo Standard</td><td>50 $</td><td>10 $</td><td>40 $</td></tr>
+  </table>
+  <h4>Règles importantes</h4>
+  <ul>
+    <li>Ne jamais accepter de paiement hors de Fiverr (Mobile Money, virement direct, etc.) : vous perdez la protection de la plateforme.</li>
+    <li>Ne donnez jamais votre code secret, votre code de confirmation ou votre mot de passe, même à quelqu'un qui se dit du support.</li>
+    <li>Renseignez-vous sur vos obligations fiscales et déclaratives à Madagascar.</li>
+  </ul>
+  `},
+
+  {titre:"Module 11 — Développer votre activité (A à Z)", contenu:`
+  <h4>Plan sur 90 jours</h4>
+  <ul>
+    <li><strong>Semaine 1-2 :</strong> compte, profil, 2 gigs publiés, portfolio de 3 travaux.</li>
+    <li><strong>Semaine 3-6 :</strong> premières commandes, premiers avis, ajustement des gigs.</li>
+    <li><strong>Semaine 7-12 :</strong> nouveau service lié au premier, amélioration des visuels, demande d'avis.</li>
+  </ul>
+  <h4>Suivi (Google Sheets gratuit)</h4>
+  <p>Créez un tableau avec : date, client, service, montant, statut (en cours / livré / payé), avis reçu. Mettez-le à jour chaque semaine.</p>
+  <h4>Amélioration continue</h4>
+  <ul>
+    <li>Lisez les avis, même négatifs : ils indiquent ce qu'il faut améliorer.</li>
+    <li>Ajoutez un service complémentaire (upsell) : ex. logo + carte de visite.</li>
+    <li>Passez en revue vos gigs chaque mois : titre, prix, images.</li>
+  </ul>
+  <h4>Pratique : objectif de 90 jours</h4>
+  <p>Écrivez votre objectif (ex : 5 commandes et 5 avis), puis découpez-le en 12 actions hebdomadaires.</p>
+  `},
+
+  {titre:"Module 12 — Erreurs fréquentes et comment les éviter", contenu:`
+  <ul>
+    <li><strong>Prix trop bas :</strong> vous travaillez beaucoup pour peu. Revoyez le Module 6.</li>
+    <li><strong>Promesses irréalistes :</strong> un délai trop court donne des révisions et des avis négatifs.</li>
+    <li><strong>Mauvaise communication :</strong> ne pas répondre pendant des jours fait perdre les clients.</li>
+    <li><strong>Client qui demande un paiement hors plateforme :</strong> refusez. C'est souvent une arnaque.</li>
+    <li><strong>Client insatisfait :</strong> écoutez, proposez une révision dans le cadre du package, restez poli. Fiverr dispose d'un processus de résolution des litiges.</li>
+    <li><strong>Trop de services à la fois :</strong> commencez par un seul service bien maîtrisé.</li>
+  </ul>
+  <h4>Pratique</h4>
+  <p>Relisez vos 3 derniers messages à des clients. Identifiez une phrase à améliorer.</p>
+  `}
+];
+
+const SITES = [
+  {nom:"Fiverr", url:"https://www.fiverr.com", usage:"La plateforme pour vendre vos services."},
+  {nom:"Canva", url:"https://www.canva.com", usage:"Créer logos, couvertures de gig et visuels."},
+  {nom:"Google Sheets", url:"https://sheets.google.com", usage:"Suivre vos commandes et revenus gratuitement."},
+  {nom:"Google Drive", url:"https://drive.google.com", usage:"Stocker et partager vos fichiers livrés."},
+  {nom:"Pexels", url:"https://www.pexels.com", usage:"Photos et vidéos gratuites pour vos portfolios."},
+  {nom:"Unsplash", url:"https://unsplash.com", usage:"Photos de haute qualité libres de droits."},
+  {nom:"Remove.bg", url:"https://www.remove.bg", usage:"Supprimer un fond d'image en quelques secondes."},
+  {nom:"TinyPNG", url:"https://tinypng.com", usage:"Réduire le poids de vos images."},
+  {nom:"Grammarly", url:"https://www.grammarly.com", usage:"Corriger vos fautes en anglais."},
+  {nom:"Google Trends", url:"https://trends.google.com", usage:"Voir ce que les clients recherchent."}
+];
+
+/* ==================== CHATBOT (questions en ligne uniquement) ==================== */
+const FAQ = [
+  // --- Formation et site ---
+  {mots:["prix","combien","tarif","cout","montant"], rep:`Le droit d'inscription à la formation est de ${CONFIG.prix}, payable une seule fois par MVola.`},
+  {mots:["paiement","payer","mvola","depot","envoi","envoyer"], rep:`Envoyez ${CONFIG.prix} par MVola au ${CONFIG.mvolaNumero} (${CONFIG.mvolaNom}). Ensuite, envoyez la référence de la transaction à l'administrateur : il débloquera votre accès après vérification.`},
+  {mots:["code","acces","debloquer","deverrouiller"], rep:"Votre accès est débloqué par l'administrateur après vérification de votre paiement. Créez votre compte dans l'Espace élève, puis attendez la validation."},
+  {mots:["reference","valider","validation"], rep:"Envoyez la référence de votre paiement MVola à l'administrateur. Une fois le paiement vérifié, il débloque votre accès."},
+  {mots:["inscri","compte","mot de passe","connexion","connecter","identifiant"], rep:"Cliquez sur « Espace élève », puis « Créer mon compte » avec votre nom, votre email et un mot de passe. Chaque personne a son propre compte."},
+  {mots:["deconnect","deconnexion","sortir","quitter"], rep:"Pour vous déconnecter, cliquez sur « Se déconnecter » dans l'Espace élève. Votre accès reste enregistré sur cet appareil quand vous revenez."},
+  {mots:["remboursement","rembourser","annuler","annulation"], rep:`Pour une demande de remboursement ou d'annulation, contactez l'administrateur au ${CONFIG.contact}.`},
+  {mots:["bonjour","salut","hello","bonsoir","coucou","bjr"], rep:"Bonjour 👋 Je peux répondre à vos questions sur la formation, Fiverr, la création de gigs, la recherche de clients, la gestion des commandes et le retrait de vos gains."},
+  {mots:["merci"], rep:"Avec plaisir ! N'hésitez pas si vous avez d'autres questions sur le travail en ligne."},
+
+  // --- Débuter ---
+  {mots:["commencer","debuter","debutant","debut","premier pas","zero","sans experience"], rep:"Commencez par le Module 1, puis suivez les modules dans l'ordre. Choisissez un seul service que vous savez déjà faire, créez un profil complet et un gig, puis cherchez vos premiers clients."},
+  {mots:["inscription fiverr","creer compte fiverr","compte fiverr","rejoindre fiverr","devenir vendeur"], rep:"Allez sur fiverr.com, cliquez sur « Rejoindre », créez votre compte, puis choisissez « Devenir vendeur ». Vérifiez votre téléphone et votre identité, et activez la double authentification. Détails dans le Module 2."},
+  {mots:["verification","identite","piece","cni","passeport"], rep:"Fiverr peut demander une pièce d'identité valide et une photo de vous, pour protéger acheteurs et vendeurs. Préparez une photo nette de votre pièce (Module 2)."},
+  {mots:["choisir service","quel service","quel metier","que vendre","idee service","idees service"], rep:"Listez ce que vous savez faire, qui en a besoin et combien de temps il faut. Puis étudiez 10 gigs similaires sur Fiverr pour voir les prix et les avis (Module 4)."},
+  {mots:["temps","heures par jour","combien d'heures","a temps partiel","travail a cote"], rep:"Vous pouvez commencer avec 1 heure par jour. La régularité compte plus que les longues sessions. Un objectif réaliste est de publier 2 gigs et de répondre aux clients chaque jour."},
+  {mots:["telephone","mobile","smartphone","ordinateur","pc"], rep:"Vous pouvez travailler depuis un téléphone pour répondre aux messages et suivre vos commandes. Pour créer des visuels et des livraisons de qualité, un ordinateur est plus confortable."},
+  {mots:["anglais","langue","francais","malgache"], rep:"Beaucoup d'acheteurs écrivent en anglais ou en français. Ajoutez les langues que vous parlez à votre profil. Un anglais simple et clair suffit pour débuter."},
+  {mots:["experience","sans diplome","diplome","competence"], rep:"Vous n'avez pas besoin de diplôme pour commencer. Créez des exemples de travaux pour votre portfolio, même fictifs, pour montrer votre niveau."},
+
+  // --- Profil ---
+  {mots:["profil","photo","biographie","presentation"], rep:"Un bon profil a une photo claire et souriante, un titre précis, une description en 3 paragraphes courts, vos compétences et un portfolio (Module 3)."},
+  {mots:["portfolio","exemple","travaux","realisation"], rep:"Ajoutez 3 à 5 travaux réels avec une courte explication. Si vous débutez, réalisez des projets d'exemple pour vous entraîner."},
+  {mots:["description profil","modele description"], rep:"Présentez-vous en 3 phrases : qui vous êtes, ce que vous faites, pour qui. Terminez par votre méthode de travail. Un modèle est disponible dans le Module 3."},
+
+  // --- Gig ---
+  {mots:["gig","offre","service publie","publier"], rep:"Un gig est l'offre que vous publiez sur Fiverr. Le Module 5 vous guide pour le créer étape par étape : titre, tags, packages, description et FAQ."},
+  {mots:["titre gig","titre","formule titre"], rep:"Formule simple : « Je vais [action] [résultat] [précision] ». Ex : « Je vais créer votre logo professionnel en 24h, avec 2 révisions »."},
+  {mots:["package","packages","basique","standard","premium"], rep:"Proposez 3 packages : Basique, Standard, Premium, avec un contenu et un prix croissants. Le Module 5 contient un exemple de tableau."},
+  {mots:["tags","mots cles","mot-cle","motcle","referencement","seo","recherche gig"], rep:"Utilisez 5 mots-clés que tapent vraiment vos clients. Google Trends vous aide à voir ce qui est recherché (Module 4)."},
+  {mots:["questions client","exigences","informations client"], rep:"Posez toutes les questions nécessaires avant de commencer : nom, couleurs, exemples, contenu, délai souhaité. Vous pouvez les configurer dans les exigences du gig."},
+
+  // --- Prix ---
+  {mots:["fixer prix","prix gig","prix de depart","combien facturer","combien demander","tarif gig"], rep:"Calculez le temps d'une commande, multipliez par un tarif horaire minimum, puis ajoutez la commission Fiverr. Ne commencez pas à 1 $ (Module 6)."},
+  {mots:["commission","frais","taux"], rep:"Fiverr prélève une commission sur chaque commande. Vérifiez le taux actuel sur la page d'aide de fiverr.com, car il peut changer."},
+  {mots:["augmenter prix","augmenter mes prix","hausser prix"], rep:"Augmentez vos prix après 5 à 10 avis positifs. Un historique solide justifie un tarif plus élevé."},
+
+  // --- Visuels ---
+  {mots:["video","presentation video"], rep:"Une vidéo de 30 à 60 secondes qui montre votre travail aide beaucoup à convaincre. Gardez un son clair et une image nette (Module 7)."},
+  {mots:["image","couverture","visuel","canva","logo design"], rep:"Pour vos visuels, utilisez Canva (gratuit), Pexels et Unsplash. La couverture de gig doit faire environ 1280 × 769 px (Module 7)."},
+  {mots:["fond","remove","detourer","supprimer fond"], rep:"Remove.bg permet de supprimer le fond d'une photo en quelques secondes (Module 7)."},
+
+  // --- Clients ---
+  {mots:["trouver client","trouver des clients","avoir des clients","premiers clients","clients","obtenir clients","gagner clients"], rep:"Soignez votre gig (titre, mots-clés, images), répondez vite aux demandes, proposez des offres personnalisées, et montrez vos travaux sur les réseaux sociaux avec le lien de votre gig (Module 8)."},
+  {mots:["prospection","contacter client","demarcher","demarchage","proposer service"], rep:"Proposez votre service à des commerces locaux, des créateurs de contenu ou des associations, avec un message personnalisé. Évitez les messages de masse non sollicités (Module 8)."},
+  {mots:["reseaux sociaux","facebook","linkedin","tiktok","instagram"], rep:"Publiez vos travaux avant/après avec le lien de votre gig. Répondez aux commentaires et aux messages rapidement."},
+  {mots:["offre personnalisee","custom offer","offre sur mesure"], rep:"Quand un client vous écrit avec un besoin précis, répondez vite et créez une offre personnalisée sur Fiverr, avec un prix et un délai adaptés."},
+  {mots:["premiere commande","prix d'appel","premier avis","pas d'avis","sans avis"], rep:"Pour obtenir vos premiers avis, vous pouvez proposer un prix d'appel raisonnable sur un service simple et bien livrer. Ne sacrifiez pas la qualité."},
+  {mots:["client difficile","mecontent","insatisfait","reclamation","plainte"], rep:"Écoutez, reconnaissez le problème, proposez une révision prévue dans votre package et restez poli. Si le désaccord persiste, Fiverr dispose d'un processus de résolution."},
+  {mots:["negocier","negociation","baisser prix","moins cher","rabais"], rep:"Vous pouvez proposer une version Basique au client plutôt que de baisser le prix. Ne descendez pas sous votre tarif horaire minimum."},
+
+  // --- Commandes ---
+  {mots:["message","repondre","reponse client","repondre client"], rep:"Répondez en moins de 2 heures, même pour dire « Je regarde et je reviens ». Posez toutes vos questions en une fois (Module 9)."},
+  {mots:["livraison","livrer","delai","retard","deadline"], rep:"Livrez toujours avant la date annoncée. Si vous risquez du retard, prévenez le client à l'avance et expliquez pourquoi."},
+  {mots:["revision","modification","modifier","changer"], rep:"Le nombre de révisions dépend de votre package. Prévoyez-le dans votre offre et restez courtois, mais tenez-vous à ce qui est prévu."},
+  {mots:["message livraison","modele livraison","comment livrer"], rep:"Pour livrer : envoyez les fichiers bien nommés, un petit message explicatif et l'invitation à demander une révision si nécessaire. Modèle dans le Module 9."},
+  {mots:["avis","etoile","evaluation","note"], rep:"Une fois le travail accepté, demandez gentiment un avis 5 étoiles, sans pression. Les bons avis font venir de nouvelles commandes."},
+  {mots:["annulation commande","annuler commande","litige","dispute"], rep:"En cas de litige, communiquez d'abord avec le client, puis utilisez le système de résolution de Fiverr si nécessaire. Gardez une trace de vos échanges."},
+
+  // --- Argent ---
+  {mots:["retrait","retirer","retire","encaisser","toucher argent","recuperer argent","recevoir argent"], rep:"Les gains apparaissent dans la section Revenus de votre compte, après la livraison et une période de traitement. Choisissez une méthode de retrait disponible pour Madagascar, en vérifiant la page d'aide de Fiverr."},
+  {mots:["mobile money","mvola","orange money","airtel money"], rep:"Ne demandez jamais un paiement de client par Mobile Money en dehors de Fiverr. Pour recevoir vos gains, utilisez les méthodes de retrait proposées par Fiverr."},
+  {mots:["gagner combien","revenu","combien je gagne","salaire","argent"], rep:"Les revenus varient beaucoup selon le service, la régularité, les avis et le temps investi. Il n'est pas possible de garantir un montant. Commencez petit, suivez vos résultats et améliorez-vous."},
+  {mots:["impot","taxe","declaration","fiscal"], rep:"Renseignez-vous auprès des autorités fiscales de Madagascar sur vos obligations de déclaration pour une activité en ligne."},
+  {mots:["suivi","tableau","suivre revenus","comptabilite"], rep:"Suivez vos commandes dans un tableau Google Sheets : date, client, service, montant, statut, avis. Modèle dans le Module 11."},
+
+  // --- Développement ---
+  {mots:["ameliorer","progresser","developper activite","croissance","grandir","plus de clients"], rep:"Lisez vos avis, ajoutez un service complémentaire, améliorez vos visuels chaque mois et suivez votre tableau de bord (Module 11)."},
+  {mots:["upsell","service complementaire","vendre plus"], rep:"Proposez un service complémentaire à vos clients, par exemple logo + carte de visite. Cela augmente la valeur de chaque commande."},
+  {mots:["erreur","erreurs","eviter","faute","probleme"], rep:"Les erreurs fréquentes sont les prix trop bas, les promesses irréalistes, une mauvaise communication et les paiements hors plateforme (Module 12)."},
+  {mots:["arnaque","escroquerie","fraude","securite","pirate","vol compte"], rep:"Ne payez jamais hors de Fiverr, ne donnez jamais votre code secret ou votre mot de passe, et méfiez-vous de tout message qui semble trop beau. En cas de doute, ne répondez pas."},
+  {mots:["sites","outils","recommande","ressource","canva","google sheets"], rep:"Consultez la page « Sites utiles » : elle regroupe les outils gratuits recommandés pour commencer."},
+  {mots:["freelance","travail en ligne","travailler en ligne","travailler","emploi"], rep:"Le travail en ligne demande de la régularité et de la qualité. Commencez par un service simple, livrez bien, et développez-vous étape par étape (Modules 1 à 12)."}
+];
+
+/* ==================== OUTILS ==================== */
+const K = {users:"mf_users", session:"mf_session", codesUsed:"mf_codes_utilises", admin:"mf_admin_ok", codesGeneres:"mf_codes_generes"};
+const get = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch { return d; } };
+const set = (k, v) => localStorage.setItem(k, JSON.stringify(v));
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const norm = s => String(s).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");
+
+// SHA-256 en JavaScript pur (fonctionne partout, même sans HTTPS)
+function sha256(t){
+  const primes=[]; for(let n=2;primes.length<64;n++){ if(primes.every(p=>n%p)) primes.push(n); }
+  const frac=x=>Math.floor((x-Math.floor(x))*4294967296)>>>0;
+  const KK=primes.map(p=>frac(Math.cbrt(p)));
+  const H=primes.slice(0,8).map(p=>frac(Math.sqrt(p)));
+  const msg=new TextEncoder().encode(String(t));
+  const bitLen=msg.length*8;
+  const padLen=((msg.length+9+63)>>6)<<6;
+  const buf=new Uint8Array(padLen); buf.set(msg); buf[msg.length]=0x80;
+  const dv=new DataView(buf.buffer);
+  dv.setUint32(padLen-8, Math.floor(bitLen/4294967296));
+  dv.setUint32(padLen-4, bitLen>>>0);
+  const rotr=(x,n)=>(x>>>n)|(x<<(32-n));
+  const W=new Array(64);
+  for(let off=0;off<padLen;off+=64){
+    for(let i=0;i<16;i++) W[i]=dv.getUint32(off+i*4);
+    for(let i=16;i<64;i++){
+      const s0=rotr(W[i-15],7)^rotr(W[i-15],18)^(W[i-15]>>>3);
+      const s1=rotr(W[i-2],17)^rotr(W[i-2],19)^(W[i-2]>>>10);
+      W[i]=(W[i-16]+s0+W[i-7]+s1)>>>0;
+    }
+    let [a,b,c,d,e,f,g,h]=H;
+    for(let i=0;i<64;i++){
+      const S1=rotr(e,6)^rotr(e,11)^rotr(e,25);
+      const ch=(e&f)^(~e&g);
+      const t1=(h+S1+ch+KK[i]+W[i])>>>0;
+      const S0=rotr(a,2)^rotr(a,13)^rotr(a,22);
+      const maj=(a&b)^(a&c)^(b&c);
+      const t2=(S0+maj)>>>0;
+      h=g; g=f; f=e; e=(d+t1)>>>0; d=c; c=b; b=a; a=(t1+t2)>>>0;
+    }
+    H[0]=(H[0]+a)>>>0; H[1]=(H[1]+b)>>>0; H[2]=(H[2]+c)>>>0; H[3]=(H[3]+d)>>>0;
+    H[4]=(H[4]+e)>>>0; H[5]=(H[5]+f)>>>0; H[6]=(H[6]+g)>>>0; H[7]=(H[7]+h)>>>0;
+  }
+  return H.map(x=>x.toString(16).padStart(8,"0")).join("");
+}
+
+function genCode(){
+  const c = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";
+  const r = n => Array.from(crypto.getRandomValues(new Uint8Array(n)), x => c[x % c.length]).join("");
+  return `FV-${r(4)}-${r(4)}`;
+}
+
+/* ==================== ÉTAT ==================== */
+let view = "accueil";
+let msg = null;          // message de l'espace élève
+let authTab = "login";   // "login" ou "register"
+let adminMsg = null;
+
+const getUsers = () => get(K.users, []);
+const saveUsers = u => set(K.users, u);
+function currentUser(){
+  const id = localStorage.getItem(K.session);
+  return id ? getUsers().find(u => u.id === id) || null : null;
+}
+
+/* ==================== NAVIGATION & RENDU ==================== */
+function go(v){
+  view = v;
+  document.querySelectorAll(".nav-links button").forEach(b => b.classList.toggle("active", b.dataset.view === v));
+  render();
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+function render(){
+  const views = {accueil, formation, sites, espace, admin};
+  document.getElementById("app").innerHTML = views[view]();
+}
+
+function accueil(){
+  return `
+  <section class="hero">
+    <h1>Apprenez à vendre sur Fiverr,<br>de A à Z</h1>
+    <p>Une formation simple, détaillée et pratique, pensée pour les débutants à Madagascar.</p>
+    <div class="price" style="color:#fff;margin-top:20px">${CONFIG.prix}</div>
+    <button class="btn" data-act="go" data-view="espace">Accéder à la formation</button>
+  </section>
+  <h2>Pourquoi cette formation ?</h2>
+  <div class="grid">
+    <div class="card"><div class="ico">📚</div><h3>Simple et détaillée</h3><p>Des explications claires, sans jargon, avec des étapes numérotées.</p></div>
+    <div class="card"><div class="ico">🧭</div><h3>De A à Z</h3><p>Du premier compte jusqu'à la livraison et la croissance de votre activité.</p></div>
+    <div class="card"><div class="ico">🛠️</div><h3>Outils gratuits</h3><p>Une liste de sites recommandés pour travailler sans dépenser.</p></div>
+    <div class="card"><div class="ico">🤖</div><h3>Assistant en ligne</h3><p>Un assistant disponible à tout moment pour répondre à vos questions.</p></div>
+  </div>
+  <h2>Ce que vous allez apprendre</h2>
+  <div class="grid">${MODULES.map(m => `<div class="card"><h3>${esc(m.titre)}</h3></div>`).join("")}</div>`;
+}
+
+function formation(){
+  return `
+  <h2>Programme de la formation</h2>
+  <p style="margin-bottom:18px;color:var(--gray)">Le contenu détaillé est accessible après validation de votre paiement.</p>
+  ${MODULES.map(m => `<div class="module"><summary>${esc(m.titre)}</summary></div>`).join("")}
+  <div style="text-align:center;margin-top:20px"><button class="btn" data-act="go" data-view="espace">Accéder à mon espace élève</button></div>`;
+}
+
+function sites(){
+  return `
+  <h2>Sites recommandés pour commencer</h2>
+  <div class="grid">${SITES.map(s => `<div class="card"><h3>${esc(s.nom)}</h3><p>${esc(s.usage)}</p><a href="${esc(s.url)}" target="_blank" rel="noopener">Visiter le site →</a></div>`).join("")}</div>`;
+}
+
+function espace(){
+  const u = currentUser();
+  if (!u) return authForms();
+  if (u.unlocked) return contenu(u);
+  return header(u) + payerEtCode();
+}
+
+function header(u){
+  return `<div class="box" style="max-width:none;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+    <div><strong>Bonjour ${esc(u.nom)}</strong><br><small style="color:var(--gray)">${esc(u.email)}</small></div>
+    <button class="btn sec small" data-act="logout">Se déconnecter</button>
+  </div>`;
+}
+
+function authForms(){
+  const onglets = authTab === "login" || authTab === "register";
+  let corps = "";
+  if (authTab === "login") corps = `
+    <form id="f-login">
+      <label>Email</label><input name="email" type="email" required>
+      <label>Mot de passe</label><input name="mdp" type="password" required>
+      <button class="btn full" type="button" data-act="submit">Se connecter</button>
+    </form>
+    <p style="margin-top:14px;text-align:center"><button class="link" data-act="tab" data-tab="forgot">Mot de passe oublié ?</button></p>`;
+  if (authTab === "register") corps = `
+    <form id="f-register">
+      <label>Nom complet</label><input name="nom" required>
+      <label>Email</label><input name="email" type="email" required>
+      <label>Mot de passe (6 caractères minimum)</label><input name="mdp" type="password" minlength="6" required>
+      <button class="btn full" type="button" data-act="submit">Créer mon compte</button>
+    </form>`;
+  if (authTab === "forgot") corps = `
+    <p style="color:var(--gray);font-size:.92rem">Pour réinitialiser votre mot de passe, contactez l'administrateur au <strong>${CONFIG.contact}</strong>. Il vérifiera votre compte.</p>
+    <p style="margin-top:14px;text-align:center"><button class="link" data-act="tab" data-tab="login">← Retour à la connexion</button></p>`;
+  return `
+  <div class="box">
+    ${onglets ? `
+    <p style="color:var(--gray);font-size:.92rem;margin-bottom:14px">Étape 1 : créez votre compte ou connectez-vous. Étape 2 : attendez la validation de votre paiement par l'administrateur.</p>
+    <div class="tabs">
+      <button class="${authTab==='login'?'active':''}" data-act="tab" data-tab="login">Se connecter</button>
+      <button class="${authTab==='register'?'active':''}" data-act="tab" data-tab="register">Créer mon compte</button>
+    </div>` : ""}
+    ${corps}
+    ${msg ? `<div class="msg ${msg.type}">${esc(msg.text)}</div>` : ""}
+  </div>`;
+}
+
+function payerEtCode(){
+  return `
+  <div class="box">
+    <span class="badge wait">⏳ En attente de validation</span>
+    <h3 style="margin-top:14px">Accès à la formation</h3>
+    <div class="mvola">
+      1. Envoyez <strong>${CONFIG.prix}</strong> par MVola au <strong>${CONFIG.mvolaNumero}</strong><br>
+      Nom : <strong>${esc(CONFIG.mvolaNom)}</strong>
+    </div>
+    <p style="color:var(--gray);font-size:.92rem">2. Envoyez la référence de votre transaction à l'administrateur (${CONFIG.contact}).</p>
+    <p style="color:var(--gray);font-size:.92rem;margin-top:10px">3. L'administrateur vérifie votre paiement et débloque votre accès. Revenez sur cette page ensuite : la formation s'affichera automatiquement.</p>
+    ${msg ? `<div class="msg ${msg.type}">${esc(msg.text)}</div>` : ""}
+  </div>`;
+}
+
+function contenu(u){
+  const done = get("mf_progres", []);
+  const pct = Math.round(done.length / MODULES.length * 100);
+  return header(u) + `
+  <div class="msg ok" style="margin-bottom:18px">✅ Accès activé. Bonne formation !</div>
+
+  <div class="box" style="max-width:none;margin-bottom:18px">
+    <strong>Votre progression : ${done.length}/${MODULES.length} modules terminés</strong>
+    <div style="background:#e2e8f0;border-radius:999px;height:10px;margin-top:8px;overflow:hidden">
+      <div style="width:${pct}%;height:10px;background:var(--p)"></div>
+    </div>
+  </div>
+
+  <h2>Mode démo pratique</h2>
+  <p style="color:var(--gray);margin-bottom:14px">Entraînez-vous avec des clients fictifs : acceptez une commande, répondez au client, livrez le travail, puis simulez l'acceptation et le retrait.</p>
+  ${demoRender()}
+
+  <h2>Programme de la formation</h2>
+  ${MODULES.map((m,i) => `<details class="module"><summary>${done.includes(i) ? "✅ " : ""}${esc(m.titre)}</summary><div class="body">${m.contenu}
+    <label style="display:flex;gap:8px;align-items:center;margin-top:14px;font-weight:600"><input type="checkbox" data-done="${i}" ${done.includes(i) ? "checked" : ""} style="width:auto"> Module terminé</label>
+  </div></details>`).join("")}
+
+  <h2>Lexique</h2>
+  <div class="grid">
+    ${LEXIQUE.map(l => `<div class="card"><h3>${esc(l[0])}</h3><p>${esc(l[1])}</p></div>`).join("")}
+  </div>
+
+  <h2>Sites recommandés</h2>
+  <div class="grid">${SITES.map(s => `<div class="card"><h3>${esc(s.nom)}</h3><p>${esc(s.usage)}</p><a href="${esc(s.url)}" target="_blank" rel="noopener">Visiter →</a></div>`).join("")}</div>`;
+}
+
+/* ==================== MODE DÉMO ==================== */
+const LEXIQUE = [
+  ["Gig","L'offre de service que vous publiez sur Fiverr."],
+  ["Package","Une des 3 offres (Basique, Standard, Premium) d'un gig."],
+  ["Tags","Les mots-clés qui aident les clients à trouver votre gig."],
+  ["Exigences","Les questions que Fiverr pose au client avant le début du travail."],
+  ["Offre personnalisée","Une offre sur mesure envoyée à un client, avec prix et délai."],
+  ["Commission","La part prélevée par Fiverr sur chaque commande."],
+  ["Révision","Une modification demandée par le client, selon votre package."],
+  ["Livraison","L'envoi du travail final au client."],
+  ["Avis","La note et le commentaire laissés par le client après la commande."],
+  ["Litige","Un désaccord entre vous et le client sur une commande."],
+  ["Solde disponible","Le montant que vous pouvez retirer."],
+  ["Démo","Un exercice fictif pour vous entraîner, sans vrai client ni vrai argent."]
+];
+
+const DEMO_STATUT = {nouvelle:"Nouvelle commande", en_cours:"En cours", livree:"Livrée — en attente de l'acceptation du client", terminee:"Terminée"};
+const DEMO_CLIENTS = [
+  ["Café Ambatu","Logo — package Basique",25],
+  ["Studio Fanja","Montage vidéo 30 s — package Standard",40],
+  ["Clinique Hery","Affiche A4 — package Basique",20],
+  ["Agence Tovo","Présentation 10 diapositives — package Premium",60]
+];
+const DEMO_REPONSES = ["Merci, c'est parfait !","Pouvez-vous me montrer une version avec des couleurs plus claires ?","Très bien, je vous attends.","D'accord, merci pour la mise à jour."];
+
+function demoSeed(){
+  return {solde:0, retire:0, msg:null, commandes:[
+    {id:"c1", client:"Restaurant Le Baobab", service:"Logo — package Basique", montant:25, statut:"nouvelle",
+      messages:[{de:"client", txt:"Bonjour, pouvez-vous créer un logo pour notre restaurant ?"}]},
+    {id:"c2", client:"Boutique Tanjona", service:"Couverture Facebook — package Standard", montant:50, statut:"en_cours",
+      messages:[{de:"client", txt:"Nous voulons une couverture avec nos couleurs bleu et blanc."},{de:"moi", txt:"Bien reçu ! Je vous envoie un aperçu demain."}]},
+    {id:"c3", client:"Association Vonjy", service:"Traduction FR → EN (2 pages)", montant:15, statut:"livree",
+      messages:[{de:"client", txt:"Merci de traduire notre présentation."},{de:"moi", txt:"Traduction livrée. Dites-moi si vous souhaitez une révision."}]}
+  ]};
+}
+function demoGet(){
+  let d = get("mf_demo", null);
+  if (!d) { d = demoSeed(); set("mf_demo", d); }
+  return d;
+}
+function demoSave(d){ set("mf_demo", d); }
+
+function demoRender(){
+  const d = demoGet();
+  const gagne = d.commandes.filter(c => c.statut === "terminee").reduce((t,c) => t + c.montant * 0.8, 0);
+  const solde = gagne - d.retire;
+  return `
+  <div class="box" style="max-width:none;margin-bottom:18px">
+    <span class="badge no">MODE DÉMO — fictif</span>
+    <p style="color:var(--gray);font-size:.9rem;margin:8px 0 14px">Aucun vrai client, aucun vrai argent. Commission de démonstration : 20 %.</p>
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px">
+      <div class="card"><small>Gagné (net)</small><h3>${gagne.toFixed(2)} $</h3></div>
+      <div class="card"><small>Solde disponible</small><h3>${solde.toFixed(2)} $</h3></div>
+      <div class="card"><small>Retiré (démo)</small><h3>${d.retire.toFixed(2)} $</h3></div>
+    </div>
+    <div class="actions" style="margin-top:14px">
+      <button class="btn small" data-act="demo-nouveau">+ Nouveau client démo</button>
+      <button class="btn small" data-act="demo-retrait">Simuler un retrait</button>
+      <button class="btn sec small" data-act="demo-reset">Réinitialiser la démo</button>
+    </div>
+    ${d.msg ? `<div class="msg info">${esc(d.msg)}</div>` : ""}
+  </div>
+  ${d.commandes.map(demoCommande).join("")}`;
+}
+
+function demoCommande(c){
+  let actions = "";
+  if (c.statut === "nouvelle") actions = `<button class="btn small" data-act="demo-accepter" data-id="${c.id}">Accepter la commande</button>`;
+  if (c.statut === "en_cours") actions = `<button class="btn small" data-act="demo-livrer" data-id="${c.id}">Livrer le travail (démo)</button>`;
+  if (c.statut === "livree") actions = `<button class="btn small" data-act="demo-valider" data-id="${c.id}">Simuler l'acceptation du client</button>`;
+  if (c.statut === "terminee") actions = `<span class="badge ok">✅ Gains ajoutés au solde</span>`;
+  return `
+  <div class="card" style="margin-bottom:14px">
+    <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;align-items:center">
+      <strong>${esc(c.client)}</strong>
+      <span class="badge ${c.statut==='terminee'?'ok':''}">${esc(DEMO_STATUT[c.statut])}</span>
+    </div>
+    <p style="font-size:.92rem;color:var(--gray);margin:6px 0">${esc(c.service)} — ${c.montant} $</p>
+    <div class="actions" style="margin:10px 0">${actions}</div>
+    <div style="background:#f8fafc;border-radius:10px;padding:10px;max-height:220px;overflow-y:auto">
+      ${c.messages.map(m => `<div style="margin:6px 0"><strong>${m.de==='client' ? esc(c.client) : 'Vous'} :</strong> ${esc(m.txt)}</div>`).join("")}
+    </div>
+    <div class="actions" style="margin-top:8px">
+      <input id="msg-${c.id}" placeholder="Écrire un message au client..." style="flex:1;min-width:180px">
+      <button class="btn small" data-act="demo-msg" data-id="${c.id}">Envoyer</button>
+    </div>
+  </div>`;
+}
+
+function demoAction(a, id){
+  const d = demoGet();
+  d.msg = null;
+  if (a === "demo-nouveau") {
+    const [client, service, montant] = DEMO_CLIENTS[Math.floor(Math.random()*DEMO_CLIENTS.length)];
+    d.commandes.unshift({id:"c"+Date.now(), client, service, montant, statut:"nouvelle",
+      messages:[{de:"client", txt:"Bonjour, je souhaite ce service. Êtes-vous disponible ?"}]});
+    d.msg = "Nouveau client démo ajouté.";
+    demoSave(d); return render();
+  }
+  if (a === "demo-retrait") {
+    const gagne = d.commandes.filter(c => c.statut === "terminee").reduce((t,c) => t + c.montant * 0.8, 0);
+    const solde = gagne - d.retire;
+    if (solde <= 0) d.msg = "Pas de solde disponible : terminez d'abord une commande démo.";
+    else { d.retire = gagne; d.msg = `Retrait démo de ${solde.toFixed(2)} $ effectué (simulation).`; }
+    demoSave(d); return render();
+  }
+  if (a === "demo-reset") { localStorage.removeItem("mf_demo"); return render(); }
+
+  const c = d.commandes.find(x => x.id === id); if (!c) return;
+  const input = document.getElementById("msg-"+id);
+  const texte = input ? input.value.trim() : "";
+
+  if (a === "demo-accepter") {
+    c.statut = "en_cours";
+    c.messages.push({de:"moi", txt:"Bonjour, merci pour votre confiance ! Je commence aujourd'hui."});
+    d.msg = "Commande acceptée.";
+  }
+  if (a === "demo-livrer") {
+    if (!texte) { d.msg = "Écrivez d'abord un message de livraison dans la case du client (exemple : Module 9)."; demoSave(d); return render(); }
+    c.messages.push({de:"moi", txt:texte});
+    c.messages.push({de:"moi", txt:"[Fichier livré : travail_final.pdf] (démo)"});
+    c.statut = "livree";
+    d.msg = "Travail livré. Le client doit maintenant accepter la commande.";
+  }
+  if (a === "demo-valider") {
+    c.messages.push({de:"client", txt:"Parfait, merci beaucoup !"});
+    c.statut = "terminee";
+    d.msg = `Client satisfait : ${(c.montant*0.8).toFixed(2)} $ ajoutés à votre solde (démo).`;
+  }
+  if (a === "demo-msg") {
+    if (!texte) return;
+    c.messages.push({de:"moi", txt:texte});
+    demoSave(d); render();
+    setTimeout(() => {
+      const d2 = demoGet();
+      const c2 = d2.commandes.find(x => x.id === id);
+      if (c2) { c2.messages.push({de:"client", txt: DEMO_REPONSES[Math.floor(Math.random()*DEMO_REPONSES.length)]}); demoSave(d2); render(); }
+    }, 900);
+    return;
+  }
+  demoSave(d); render();
+}
+
+/* ==================== ACTIONS ÉLÈVE ==================== */
+async function inscription(f){
+  const email = f.email.value.trim().toLowerCase();
+  const users = getUsers();
+  if (users.some(u => u.email === email)) {
+    msg = {type:"err", text:"Cet email est déjà inscrit. Connectez-vous."}; return render();
+  }
+  const u = {id: Date.now().toString(36) + Math.random().toString(36).slice(2,7), nom: f.nom.value.trim(), email, mdp: sha256(f.mdp.value), unlocked:false, date: new Date().toISOString()};
+  users.push(u); saveUsers(users);
+  localStorage.setItem(K.session, u.id);
+  msg = null; render();
+}
+
+function connexion(f){
+  const email = f.email.value.trim().toLowerCase();
+  const h = sha256(f.mdp.value);
+  const u = getUsers().find(x => x.email === email && x.mdp === h);
+  if (!u) { msg = {type:"err", text:"Email ou mot de passe incorrect."}; return render(); }
+  localStorage.setItem(K.session, u.id);
+  msg = null; render();
+}
+
+function deconnexion(){
+  localStorage.removeItem(K.session);
+  msg = {type:"info", text:"Vous êtes déconnecté. Votre accès reste enregistré sur cet appareil."};
+  render();
+}
+
+/* ==================== ADMIN ==================== */
+function admin(){
+  if (sessionStorage.getItem(K.admin) !== "ok") {
+    return `<div class="box"><h3>Espace administrateur</h3>
+      <form id="f-admin">
+        <label>Code administrateur</label><input type="password" name="code" required>
+        <button class="btn full" type="button" data-act="submit">Entrer</button>
+      </form>
+      ${adminMsg ? `<div class="msg err">${esc(adminMsg)}</div>` : ""}</div>`;
+  }
+  const users = getUsers();
+  return `
+  <h2>Gestion des élèves</h2>
+  <div class="box" style="max-width:none;margin-bottom:14px">
+    <p style="color:var(--gray);font-size:.92rem">Débloquez un élève après avoir vérifié son paiement MVola. Vous pouvez aussi bloquer son accès à tout moment.</p>
+    ${adminMsg ? `<div class="msg info">${esc(adminMsg)}</div>` : ""}
+  </div>
+  ${users.length ? `<div style="overflow-x:auto"><table>
+    <tr><th>Nom</th><th>Email</th><th>Statut</th><th>Inscrit le</th><th>Action</th></tr>
+    ${users.map(u => `<tr><td>${esc(u.nom)}</td><td>${esc(u.email)}</td>
+      <td><span class="badge ${u.unlocked?'ok':'wait'}">${u.unlocked?'Débloqué':'En attente'}</span></td>
+      <td>${new Date(u.date).toLocaleDateString("fr-FR")}</td>
+      <td><button class="btn small ${u.unlocked?'danger':''}" data-act="user-toggle" data-id="${u.id}">${u.unlocked?'Bloquer':'Débloquer'}</button></td></tr>`).join("")}
+  </table></div>` : `<div class="box"><p>Aucun compte pour le moment.</p></div>`}
+  <div class="actions" style="margin-top:18px"><button class="btn sec small" data-act="admin-quit">Quitter l'admin</button></div>`;
+}
+
+function basculerEleve(id){
+  const users = getUsers();
+  const u = users.find(x => x.id === id);
+  if (!u) return;
+  u.unlocked = !u.unlocked;
+  saveUsers(users);
+  adminMsg = (u.unlocked ? "Accès débloqué pour " : "Accès bloqué pour ") + u.nom + ".";
+  render();
+}
+
+/* ==================== CHATBOT ==================== */
+const bot = document.getElementById("bot");
+const botMsgs = document.getElementById("bot-msgs");
+const botForm = document.getElementById("bot-form");
+const botInput = document.getElementById("bot-input");
+
+function addMsg(txt, who){
+  const d = document.createElement("div");
+  d.className = "m " + who; d.textContent = txt;
+  botMsgs.appendChild(d); botMsgs.scrollTop = botMsgs.scrollHeight;
+}
+function repondre(q){
+  const t = " " + norm(q).replace(/[^a-z0-9 ]/g," ") + " ";
+  let best = null, score = 0;
+  for (const f of FAQ) {
+    const s = f.mots.filter(m => t.includes(" " + norm(m) + " ") || t.includes(norm(m))).length;
+    if (s > score) { score = s; best = f; }
+  }
+  return best ? best.rep : "Je réponds uniquement aux questions sur la formation, le paiement, la validation de l'accès, Fiverr et le travail en ligne. Essayez avec : prix, paiement, validation, inscription, gig, profil, livraison, avis.";
+}
+function envoyerBot(){
+  const q = botInput.value.trim(); if (!q) return;
+  addMsg(q, "me"); botInput.value = "";
+  setTimeout(() => addMsg(repondre(q), "bot"), 300);
+}
+botForm.addEventListener("submit", e => { e.preventDefault(); envoyerBot(); });
+botForm.querySelector("button").addEventListener("click", e => { e.preventDefault(); envoyerBot(); });
+document.getElementById("bot-btn").addEventListener("click", () => {
+  bot.classList.toggle("hidden");
+  if (!botMsgs.childElementCount) addMsg("Bonjour 👋 Je suis l'assistant de la formation. Je réponds aux questions sur la formation, le paiement, Fiverr et le travail en ligne. Posez votre question !", "bot");
+});
+
+/* ==================== ÉVÉNEMENTS (sans gestionnaires dans le HTML) ==================== */
+document.addEventListener("click", e => {
+  const nav = e.target.closest(".nav-links button");
+  if (nav) { go(nav.dataset.view); return; }
+  if (e.target.matches("textarea.copy")) { e.target.select(); return; }
+  const b = e.target.closest("[data-act]");
+  if (!b) return;
+  const a = b.dataset.act;
+  if (a === "go") go(b.dataset.view);
+  if (a === "tab") { authTab = b.dataset.tab; msg = null; render(); }
+  if (a === "submit") { traiterFormulaire(b.closest("form")); return; }
+  if (a === "logout") deconnexion();
+  if (a === "user-toggle") { basculerEleve(b.dataset.id); return; }
+  if (a === "admin-quit") { sessionStorage.removeItem(K.admin); adminMsg = null; render(); }
+});
+
+async function traiterFormulaire(f){
+  if (!f || !f.id) return;
+  if (!["f-login","f-register","f-admin"].includes(f.id)) return;
+  try {
+    if (f.id === "f-login") connexion(f);
+    if (f.id === "f-register") await inscription(f);
+    if (f.id === "f-admin") {
+      if (f.code.value === CONFIG.codeAdmin) { sessionStorage.setItem(K.admin, "ok"); adminMsg = null; }
+      else adminMsg = "Code administrateur incorrect.";
+      render();
+    }
+  } catch (err) {
+    msg = {type:"err", text:"Erreur : " + err.message};
+    render();
+  }
+}
+
+document.addEventListener("submit", e => {
+  e.preventDefault();
+  traiterFormulaire(e.target);
+});
+
+/* ==================== DÉMO & PROGRESSION (gestionnaires) ==================== */
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-act]");
+  if (!b || !b.dataset.act.startsWith("demo-")) return;
+  demoAction(b.dataset.act, b.dataset.id);
+});
+document.addEventListener("change", e => {
+  if (e.target.dataset && e.target.dataset.done !== undefined) {
+    const i = Number(e.target.dataset.done);
+    let l = get("mf_progres", []);
+    l = e.target.checked ? [...new Set([...l, i])] : l.filter(x => x !== i);
+    set("mf_progres", l);
+  }
+});
+
+/* ==================== INITIALISATION ==================== */
+document.getElementById("year").textContent = new Date().getFullYear();
+render();
+</script>
+</body>
+</html>
